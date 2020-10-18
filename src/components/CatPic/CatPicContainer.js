@@ -1,15 +1,11 @@
 import React from 'react'
-import * as axios from 'axios'
 import CatPic from "./CatPic";
-import {setPicAC} from "../../redux/animalsReducer";
+import {getPic} from "../../redux/animalsReducer";
 const {connect} = require("react-redux");
 
 class CatPicApiContainer extends React.Component{
     componentDidMount() {
-        axios.get('https://aws.random.cat/meow')
-            .then(response => {
-                this.props.setPic(response.data.file)
-            })
+        this.props.getPic()
     }
 
     render() {
@@ -25,14 +21,6 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        setPic: (pic) => {
-            dispatch(setPicAC(pic))
-        }
-    }
-}
-
-const CatPicContainer = connect(mapStateToProps, mapDispatchToProps)(CatPicApiContainer)
+const CatPicContainer = connect(mapStateToProps, { getPic })(CatPicApiContainer)
 
 export default CatPicContainer

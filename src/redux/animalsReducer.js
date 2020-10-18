@@ -1,3 +1,5 @@
+import {catApi} from "../api/api";
+
 const SET_FACT = 'SET-FACT'
 const SET_PIC = 'SET-PIC'
 
@@ -13,7 +15,6 @@ const animalsReducer = (state = initialState, action) => {
             return {...state, cat_fact: action.fact}
         }
         case SET_PIC: {
-            debugger
             return {...state, cat_pic: action.pic}
         }
         default: {
@@ -23,7 +24,23 @@ const animalsReducer = (state = initialState, action) => {
 
 }
 
-export const setFactAC = (fact) => ({type: SET_FACT, fact})
-export const setPicAC = (pic) => ({type: SET_PIC, pic})
+export const setFact = (fact) => ({type: SET_FACT, fact})
+export const setPic = (pic) => ({type: SET_PIC, pic})
+
+export const getFact = () => {
+    return dispatch => {
+        catApi.getFact().then(response => {
+            dispatch(setFact(response.text))
+        })
+    }
+}
+
+export const getPic = () => {
+    return dispatch => {
+        catApi.getPic().then(response => {
+            dispatch(setPic(response.file))
+        })
+    }
+}
 
 export default animalsReducer

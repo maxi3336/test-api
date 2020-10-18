@@ -1,15 +1,11 @@
 import React from 'react'
-import * as axios from 'axios'
 import CatFact from "./CatFact";
-import {setFactAC} from "../../redux/animalsReducer";
+import {getFact} from "../../redux/animalsReducer";
 const {connect} = require("react-redux");
 
 class CatFactApiContainer extends React.Component{
     componentDidMount() {
-        axios.get('https://cat-fact.herokuapp.com/facts/random')
-            .then(response => {
-                this.props.setFact(response.data.text)
-            })
+        this.props.getFact()
     }
 
     render() {
@@ -25,14 +21,6 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        setFact: (fact) => {
-            dispatch(setFactAC(fact))
-        }
-    }
-}
-
-const CatFactContainer = connect(mapStateToProps, mapDispatchToProps)(CatFactApiContainer)
+const CatFactContainer = connect(mapStateToProps, { getFact })(CatFactApiContainer)
 
 export default CatFactContainer
