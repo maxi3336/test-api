@@ -17,30 +17,24 @@ const animalsReducer = (state = initialState, action) => {
         case SET_PIC: {
             return {...state, cat_pic: action.pic}
         }
-        default: {
+        default:
             return state
-        }
     }
 
 }
 
-export const setFact = (fact) => ({type: SET_FACT, fact})
-export const setPic = (pic) => ({type: SET_PIC, pic})
+export const setFact = fact => ({type: SET_FACT, fact})
+export const setPic = pic => ({type: SET_PIC, pic})
 
-export const getFact = () => {
-    return dispatch => {
+export const getFact = () => dispatch => {
         catApi.getFact().then(response => {
             dispatch(setFact(response.text))
         })
-    }
 }
-
-export const getPic = () => {
-    return dispatch => {
+export const getPic = () => dispatch => {
         catApi.getPic().then(response => {
             dispatch(setPic(response.file))
         })
-    }
 }
 
 export default animalsReducer
