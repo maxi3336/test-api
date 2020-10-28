@@ -1,18 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import CatPic from "./CatPic";
 import {getPic} from "../../redux/animalsReducer";
 const {connect} = require("react-redux");
 
-class CatPicApiContainer extends React.Component{
-    componentDidMount() {
-        this.props.getPic()
-    }
+const CatPicApi = (props) => {
 
-    render() {
-        return (
-            <CatPic cat_pic={this.props.cat_pic}/>
-        )
-    }
+    useEffect(() => {
+        props.getPic()
+    }, [])
+
+    return (
+        <CatPic cat_pic={props.cat_pic}/>
+    )
 }
 
 function mapStateToProps(state) {
@@ -21,6 +20,6 @@ function mapStateToProps(state) {
     }
 }
 
-const CatPicContainer = connect(mapStateToProps, { getPic })(CatPicApiContainer)
+const CatPicContainer = connect(mapStateToProps, { getPic })(CatPicApi)
 
 export default CatPicContainer

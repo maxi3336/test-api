@@ -1,18 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import CatFact from "./CatFact";
 import {getFact, getPic} from "../../redux/animalsReducer";
 const {connect} = require("react-redux");
 
-class CatFactApiContainer extends React.Component{
-    componentDidMount() {
-        this.props.getFact()
-    }
+const CatFactApiContainer  = props => {
 
-    render() {
-        return (
-            <CatFact cat_fact={this.props.cat_fact} getFact={this.props.getFact} getPic={this.props.getPic}/>
-        )
-    }
+    useEffect(() => {
+        props.getFact()
+    }, [])
+
+    return (
+        <CatFact cat_fact={props.cat_fact} getFact={props.getFact} getPic={props.getPic}/>
+    )
 }
 
 function mapStateToProps(state) {
