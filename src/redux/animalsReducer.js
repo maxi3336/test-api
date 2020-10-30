@@ -1,7 +1,7 @@
 import {catApi} from "../api/api";
 
-const SET_FACT = 'SET-FACT'
-const SET_PIC = 'SET-PIC'
+const SET_FACT = 'test-api/set-data/SET-FACT'
+const SET_PIC = 'test-apo/set-data/SET-PIC'
 
 let initialState = {
     cat_fact:  '',
@@ -26,15 +26,13 @@ const animalsReducer = (state = initialState, action) => {
 export const setFact = fact => ({type: SET_FACT, fact})
 export const setPic = pic => ({type: SET_PIC, pic})
 
-export const getFact = () => dispatch => {
-        catApi.getFact().then(response => {
-            dispatch(setFact(response.text))
-        })
+export const getFact = () => async dispatch => {
+    let response = await catApi.getFact()
+    dispatch(setFact(response.text))
 }
-export const getPic = () => dispatch => {
-        catApi.getPic().then(response => {
-            dispatch(setPic(response.file))
-        })
+export const getPic = () => async dispatch => {
+    let response = await catApi.getPic()
+    dispatch(setPic(response.file))
 }
 
 export default animalsReducer
